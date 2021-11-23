@@ -10,8 +10,13 @@ class TarefasController {
   };
 
   um = async (req, res) => {
-    const tarefa = await tarefasService.um(req.params.id);
-    res.send(tarefa);
+    try {
+      const tarefa = await tarefasService.um(req.params.id);
+      res.status(200).send(tarefa);
+    } catch (error) {
+      console.log(error);
+      res.status(404).send({ message: "Id não encontrado" });
+    }
   };
 
   //POST salvando nova tarefa na lista
@@ -46,12 +51,12 @@ class TarefasController {
       });
   };
 
-  deletar = async (req, res) => {    
+  deletar = async (req, res) => {
     const idParam = req.params.id;
     await tarefasService
       .deletar(idParam)
       .then(() => {
-        res.send({ message: `Tarefa excluído com sucesso` });
+        res.send({ message: `Tarefa excluída com sucesso` });
       })
       .catch((err) => {
         console.log(err);

@@ -1,12 +1,16 @@
 // Importação do mongoose
 const mongoose = require("mongoose");
+const user = process.env.DB_USER;
+const pass = process.env.DB_PASS;
+const host = process.env.DB_HOST;
+const base = process.env.DB_BASE;
 
-//url de conexão = mongodb+srv://user:password@servidor:porta/nomedobanco?retryWrites=true&w=majority
+//url de conexão = mongodb+srv://user:password@host/nomedobanco
 const Conn = () => {
   mongoose
-    .connect(
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_BASE}?retryWrites=true&w=majority`,
-      {
+    .connect(      
+      `mongodb+srv://${user}:${pass}@${host}/${base}`,
+      {       
         useNewUrlParser: true,
         useUnifiedTopology: true,
       }
